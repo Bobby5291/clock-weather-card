@@ -31,6 +31,8 @@ import { type HassEntity, type HassEntityBase } from 'home-assistant-js-websocke
 import { extractMostOccuring, max, min, roundIfNotNull, roundUp } from './utils'
 import { animatedIcons, staticIcons } from './images'
 import { version } from '../package.json'
+import { DateTime } from 'luxon'
+import './clock-weather-card-editor'
 import { safeRender } from './helpers'
 import { DateTime } from 'luxon'
 
@@ -78,6 +80,10 @@ export class ClockWeatherCard extends LitElement {
     setTimeout(() => { this.currentDate = DateTime.now() }, msToNextSecond)
   }
 
+   public static getConfigElement (): HTMLElement {
+    return document.createElement('clock-weather-card-editor')
+  }
+  
   public static getStubConfig (_hass: HomeAssistant, entities: string[], entitiesFallback: string[]): Record<string, unknown> {
     const entity = entities.find(e => e.startsWith('weather.') ?? entitiesFallback.find(() => true))
     if (entity) {
